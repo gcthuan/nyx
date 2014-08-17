@@ -38,7 +38,7 @@ class OrdersController < ApplicationController
       @order.products << Product.find(product_id.to_i)
     end
     if @order.save
-      render json: @order, status: :created
+      render json: @order.to_json(:include => :products), status: :created
     else
       render json: @order.errors, status: :unprocessable_entity
     end

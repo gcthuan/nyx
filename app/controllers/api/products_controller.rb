@@ -5,12 +5,18 @@ class ProductsController < ApplicationController
   # GET /products.json
   def index
     @products = Product.all
-
+    if params[:page].nil?
+      page = 1
+    else
+      page = params[:page]
+    end
+    first = (page.to_i - 1) * 10
+    last = first + 9
     # respond_to do |format|
     #   format.json { render }
     #   format.xml { render xml: @products }
     # end
-    render json: @products
+    render json: @products[first..last]
   end
 
   # GET /products/1
